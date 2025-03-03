@@ -1,6 +1,8 @@
 package org.example.greetingapp.controller;
 
 import org.example.greetingapp.dto.GreetingDTO;
+import org.example.greetingapp.service.GreetingService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/greetings")
 public class GreetingController {
+
+    @Autowired
+    private GreetingService greetingService;
 
     @GetMapping
     public GreetingDTO getGreeting() {
@@ -31,5 +36,10 @@ public class GreetingController {
     @DeleteMapping
     public GreetingDTO deleteGreeting() {
         return new GreetingDTO("Deleted");
+    }
+
+    @GetMapping("/simple")
+    public GreetingDTO getSimpleGreeting() {
+        return new GreetingDTO(greetingService.getSimpleGreet());
     }
 }
