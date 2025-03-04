@@ -24,8 +24,7 @@ public class GreetingService implements IGreetingService {
 
     @Override
     public GreetingDTO getGreetingById(long id) {
-        if(greetingRepository.findById(id).isPresent())
-            return greetingRepository.findById(id).get();
-        return new GreetingDTO(1L , "Greeting not found");
+        return greetingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Greeting not found with id: " + id));
     }
 }
