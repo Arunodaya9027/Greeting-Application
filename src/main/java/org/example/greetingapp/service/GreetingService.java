@@ -18,7 +18,14 @@ public class GreetingService implements IGreetingService {
 
     @Override
     public GreetingDTO addGreeting(UserDTO user) {
-        String message = String.format(template, (user.getFirstName() == null && user.getLastName() == null) ? "World" : user.getFirstName() + " " + user.getLastName());
+        String message = String.format(template, (user.getFirstName().isEmpty() && user.getLastName().isEmpty()) ? "World" : user.getFirstName() + " " + user.getLastName());
         return greetingRepository.save(new GreetingDTO(counter.incrementAndGet(), message));
+    }
+
+    @Override
+    public GreetingDTO getGreetingById(long id) {
+        if(greetingRepository.findById(id).isPresent())
+            return greetingRepository.findById(id).get();
+        return new GreetingDTO(1L , "Greeting not found");
     }
 }
