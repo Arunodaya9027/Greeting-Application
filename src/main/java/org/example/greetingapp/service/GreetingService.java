@@ -41,4 +41,9 @@ public class GreetingService implements IGreetingService {
         greeting.setMessage(String.format(template, (user.getFirstName().isEmpty() && user.getLastName().isEmpty()) ? "World" : user.getFirstName() + " " + user.getLastName()));
         return greetingRepository.save(greeting);
     }
+
+    @Override
+    public void deleteGreeting(long id) {
+        greetingRepository.deleteById(id);
+    }
 }
