@@ -12,7 +12,7 @@ public class GreetingController {
     @Autowired
     private IGreetingService greetingService;
 
-    @GetMapping("")
+    @PostMapping("")
     public GreetingDTO getGreeting(@RequestParam(value = "firstName", defaultValue = "", required = false) String firstName, @RequestParam(value = "lastName", defaultValue = "", required = false) String lastName) {
         UserDTO user = new UserDTO();
         user.setFirstName(firstName);
@@ -28,5 +28,13 @@ public class GreetingController {
     @GetMapping("/all")
     public Iterable<GreetingDTO> getAllGreetings() {
         return greetingService.getAllGreetings();
+    }
+
+    @PutMapping("/edit/{id}")
+    public GreetingDTO editGreeting(@PathVariable(value = "id") long id, @RequestParam(value = "firstName", defaultValue = "", required = false) String firstName, @RequestParam(value = "lastName", defaultValue = "", required = false) String lastName) {
+        UserDTO user = new UserDTO();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        return greetingService.editGreeting(id, user);
     }
 }

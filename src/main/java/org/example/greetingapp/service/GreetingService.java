@@ -33,4 +33,12 @@ public class GreetingService implements IGreetingService {
     public List<GreetingDTO> getAllGreetings() {
         return greetingRepository.findAll();
     }
+
+    @Override
+    public GreetingDTO editGreeting(long id, UserDTO user) {
+        GreetingDTO greeting = greetingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Greeting not found with id: " + id));
+        greeting.setMessage(String.format(template, (user.getFirstName().isEmpty() && user.getLastName().isEmpty()) ? "World" : user.getFirstName() + " " + user.getLastName()));
+        return greetingRepository.save(greeting);
+    }
 }
