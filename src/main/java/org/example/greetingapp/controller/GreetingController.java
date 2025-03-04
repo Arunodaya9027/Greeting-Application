@@ -1,46 +1,22 @@
 package org.example.greetingapp.controller;
 
 import org.example.greetingapp.dto.GreetingDTO;
-import org.example.greetingapp.service.GreetingService;
+import org.example.greetingapp.dto.UserDTO;
+import org.example.greetingapp.service.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/greetings")
 public class GreetingController {
-
     @Autowired
-    private GreetingService greetingService;
+    private IGreetingService greetingService;
 
-//    @GetMapping
-//    public GreetingDTO getGreeting() {
-//        return new GreetingDTO("Hello, World!");
-//    }
-
-    @GetMapping()
-    public GreetingDTO getGreeting(@RequestParam(value = "firstName", defaultValue = "", required = false) String firstName, @RequestParam(value = "lastName", defaultValue = "", required = false) String lastName) {
-        return new GreetingDTO("Hello World " + firstName + " " + lastName);
+    @GetMapping("")
+    public GreetingDTO getGreeting(@RequestParam(value = "firstName", required = false) String firstName, @RequestParam(value = "lastName", required = false) String lastName) {
+        UserDTO user = new UserDTO();
+        user.setFirstName(firstName);
+        user.setLastName(lastName);
+        return greetingService.addGreeting(user);
     }
-
-    @PostMapping
-    public GreetingDTO createGreeting(@RequestBody GreetingDTO greeting) {
-        return new GreetingDTO("Created: " + greeting.getMessage());
-    }
-
-    @PutMapping
-    public GreetingDTO updateGreeting(@RequestBody GreetingDTO greeting) {
-        return new GreetingDTO("Updated: " + greeting.getMessage());
-    }
-
-    @DeleteMapping
-    public GreetingDTO deleteGreeting() {
-        return new GreetingDTO("Deleted");
-    }
-
-    @GetMapping("/simple")
-    public GreetingDTO getSimpleGreeting() {
-        return new GreetingDTO(greetingService.getSimpleGreet());
-    }
-
-
 }
