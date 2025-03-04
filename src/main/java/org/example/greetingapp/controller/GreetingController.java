@@ -24,4 +24,9 @@ public class GreetingController {
     public GreetingDTO getGreetingById(@PathVariable(value = "id") long id) {
         return greetingService.getGreetingById(id);
     }
+
+    @GetMapping("/all")
+    public Iterable<GreetingDTO> getAllGreetings() {
+        return greetingService.getAllGreetings();
+    }
 }
