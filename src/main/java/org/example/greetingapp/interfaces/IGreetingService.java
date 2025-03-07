@@ -1,4 +1,4 @@
-package org.example.greetingapp.service;
+package org.example.greetingapp.interfaces;
 
 import org.example.greetingapp.dto.GreetingDTO;
 import org.example.greetingapp.dto.UserDTO;

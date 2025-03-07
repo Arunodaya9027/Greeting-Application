@@ -2,6 +2,7 @@ package org.example.greetingapp.service;
 
 import org.example.greetingapp.dto.GreetingDTO;
 import org.example.greetingapp.dto.UserDTO;
+import org.example.greetingapp.interfaces.IGreetingService;
 import org.example.greetingapp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

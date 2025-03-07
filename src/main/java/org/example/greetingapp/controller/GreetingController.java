@@ -2,7 +2,7 @@ package org.example.greetingapp.controller;
 
 import org.example.greetingapp.dto.GreetingDTO;
 import org.example.greetingapp.dto.UserDTO;
-import org.example.greetingapp.service.IGreetingService;
+import org.example.greetingapp.interfaces.IGreetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
