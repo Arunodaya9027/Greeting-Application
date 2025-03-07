@@ -36,14 +36,14 @@ public class AuthUserController {
         return new ResponseEntity<>(responseUserDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/forgot-password/{email}")
+    @PutMapping("/forgot-password/{email}")
     public ResponseEntity<ResponseDTO> forgotPassword(@PathVariable String email, @Valid @RequestBody ForgotPasswordDTO forgotPasswordDTO) throws UserException {
         String result = authenticationService.forgotPassword(email, forgotPasswordDTO);
         ResponseDTO responseDTO = new ResponseDTO("Reset password link sent to your email", result);
         return new ResponseEntity<ResponseDTO>(responseDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/reset-password/{email}")
+    @PutMapping("/reset-password/{email}")
     public ResponseEntity<ResponseDTO> resetPassword(@PathVariable String email, @Valid @RequestBody ResetPasswordDTO resetPasswordDTO) throws UserException {
         String result = authenticationService.resetPassword(email, resetPasswordDTO);
         ResponseDTO responseDTO = new ResponseDTO("Password reset successfully", result);
