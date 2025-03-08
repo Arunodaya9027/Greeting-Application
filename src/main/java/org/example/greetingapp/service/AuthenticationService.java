@@ -19,16 +19,16 @@ import java.util.Optional;
 public class AuthenticationService implements IAuthenticationService {
 
     @Autowired
-    private AuthUserRepository authUserRepository;
+    AuthUserRepository authUserRepository;
 
     @Autowired
-    private EmailSenderService emailSenderService;
+    EmailSenderService emailSenderService;
 
     @Autowired
-    private JwtToken tokenUtil;
+    JwtToken tokenUtil;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Override
     public AuthUser register(AuthUserDTO userDTO) throws Exception {

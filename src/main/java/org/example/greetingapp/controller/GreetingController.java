@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/greetings")
 public class GreetingController {
     @Autowired
-    private IGreetingService greetingService;
+    IGreetingService greetingService;
 
     @PostMapping("")
     public GreetingDTO getGreeting(@RequestParam(value = "firstName", defaultValue = "", required = false) String firstName, @RequestParam(value = "lastName", defaultValue = "", required = false) String lastName) {
         UserDTO user = new UserDTO();
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        return greetingService.addGreeting(user);
+        return new GreetingDTO(greetingService.addGreeting(user));
     }
 
     @GetMapping("/{id}")
@@ -35,7 +35,7 @@ public class GreetingController {
         UserDTO user = new UserDTO();
         user.setFirstName(firstName);
         user.setLastName(lastName);
-        return greetingService.editGreeting(id, user);
+        return new GreetingDTO(greetingService.editGreeting(id, user));
     }
 
     @DeleteMapping("/delete/{id}")

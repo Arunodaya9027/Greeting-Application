@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.*;
 public class AuthUserController {
 
     @Autowired
-    private IAuthenticationService authenticationService;
+    IAuthenticationService authenticationService;
 
     @Autowired
-    private EmailSenderService emailSenderService;
+    EmailSenderService emailSenderService;
 
     @PostMapping("/register")
     public ResponseEntity<ResponseDTO> register(@Valid @RequestBody AuthUserDTO userDTO) throws Exception {

@@ -3,6 +3,7 @@ package org.example.greetingapp.service;
 import org.example.greetingapp.dto.GreetingDTO;
 import org.example.greetingapp.dto.UserDTO;
 import org.example.greetingapp.interfaces.IGreetingService;
+import org.example.greetingapp.model.Greeting;
 import org.example.greetingapp.repository.GreetingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,28 +17,32 @@ public class GreetingService implements IGreetingService {
     private final AtomicLong counter = new AtomicLong();
 
     @Autowired
-    private GreetingRepository greetingRepository;
+    GreetingRepository greetingRepository;
 
     @Override
-    public GreetingDTO addGreeting(UserDTO user) {
+    public Greeting addGreeting(UserDTO user) {
         String message = String.format(template, (user.getFirstName().isEmpty() && user.getLastName().isEmpty()) ? "World" : user.getFirstName() + " " + user.getLastName());
-        return greetingRepository.save(new GreetingDTO(counter.incrementAndGet(), message));
+        return greetingRepository.save(new Greeting(counter.incrementAndGet(), message));
     }
 
     @Override
     public GreetingDTO getGreetingById(long id) {
-        return greetingRepository.findById(id)
+        Greeting greeting = greetingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Greeting not found with id: " + id));
+        return new GreetingDTO(greeting.getId(), greeting.getMessage());
     }
 
     @Override
     public List<GreetingDTO> getAllGreetings() {
-        return greetingRepository.findAll();
+        List<Greeting> allGreetings = greetingRepository.findAll();
+        return allGreetings.stream()
+                .map(greeting -> new GreetingDTO(greeting.getId(), greeting.getMessage()))
+                .toList();
     }
 
     @Override
-    public GreetingDTO editGreeting(long id, UserDTO user) {
-        GreetingDTO greeting = greetingRepository.findById(id)
+    public Greeting editGreeting(long id, UserDTO user) {
+        Greeting greeting = greetingRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Greeting not found with id: " + id));
         greeting.setMessage(String.format(template, (user.getFirstName().isEmpty() && user.getLastName().isEmpty()) ? "World" : user.getFirstName() + " " + user.getLastName()));
         return greetingRepository.save(greeting);
